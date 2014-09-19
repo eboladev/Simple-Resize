@@ -16,16 +16,20 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void on_resizeButton_clicked();
+
 private slots:
     void deleteItem();
 
     void on_openFilesButton_clicked();
-    void on_resizeButton_clicked();
+    void on_openFolderButton_clicked();
 
     void on_actionQuit_triggered();
     void on_actionAbout_triggered();
 
     void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
+
 
 private:
     void abortResize(QString titleText, QString text);

@@ -14,11 +14,6 @@
         <translation>Открыть файлы</translation>
     </message>
     <message>
-        <location filename="../../src/mainwindow.ui" line="48"/>
-        <source>File list:</source>
-        <translation>Список файлов:</translation>
-    </message>
-    <message>
         <location filename="../../src/mainwindow.ui" line="77"/>
         <source>Width:</source>
         <translation>Ширина:</translation>
@@ -52,6 +47,11 @@
         <location filename="../../src/mainwindow.ui" line="196"/>
         <source>About</source>
         <translation>О программе</translation>
+    </message>
+    <message>
+        <location filename="../../src/mainwindow.ui" line="196"/>
+        <source>Open folder</source>
+        <translation>Открыть папку</translation>
     </message>
     <message>
         <location filename="../../src/mainwindow.cpp" line="50"/>

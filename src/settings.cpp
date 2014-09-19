@@ -49,3 +49,13 @@ void Settings::setHeight(int height)
 {
     m_settings.setValue("height", height);
 }
+
+QByteArray Settings::windowGeometry()
+{
+    return m_settings.value("windowGeometry").toByteArray();
+}
+
+void Settings::setWindowGeometry(QByteArray windowGeometry)
+{
+    m_settings.setValue("windowGeometry", windowGeometry);
+}

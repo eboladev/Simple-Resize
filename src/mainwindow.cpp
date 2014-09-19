@@ -29,6 +29,7 @@ MainWindow::~MainWindow()
     Settings::instance()->setWidth(ui->widthSpinBox->value());
     Settings::instance()->setHeight(ui->heightSpinBox->value());
 
+    Settings::instance()->setWindowGeometry(this->saveGeometry());
     delete ui;
 }
 
@@ -87,6 +88,8 @@ void MainWindow::abortResize(QString titleText, QString text)
     ui->progressBar->reset();
     ui->progressBar->setVisible(false);
 
+    ui->statusBar->clearMessage();
+
     QMessageBox::warning(0, titleText, text);
 }
 
@@ -105,7 +108,7 @@ void MainWindow::on_resizeButton_clicked()
     QString backupDirPath = QFileInfo(m_fileList[0]).dir().absolutePath() + "/backup/";
 
     if(!QFile::exists(backupDirPath)
-            && QDir().mkdir(backupDirPath))
+            && !QDir().mkdir(backupDirPath))
     {
         abortResize(tr("Can't create backup directory"),  tr("Can't create backup directory") + " " + backupDirPath);
         return;
@@ -136,8 +139,8 @@ void MainWindow::on_resizeButton_clicked()
         ui->statusBar->showMessage(tr("Processing ") + QString::number(i+1) + "/" + QString::number(m_fileList.length()));
         QImage image(m_fileList[i]);
         qDebug() << "Scale image " << fileName;
-        QImage resultImage = image.scaled(ui->widthSpinBox->value(), ui->heightSpinBox->value(), Qt::KeepAspectRatio);
-        if(!resultImage.save(m_fileList[i]))
+        QImage resultImage = image.scaled(ui->widthSpinBox->value(), ui->heightSpinBox->value(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        if(!resultImage.save(m_fileList[i], 0, 75))
         {
             qWarning() << "Can't save image" << fileName;
             QMessageBox::warning(0, tr("Can't save image"), tr("Can't save image") + " " + fileName);
@@ -152,4 +155,15 @@ void MainWindow::on_resizeButton_clicked()
 void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 {
     QDesktopServices::openUrl(QUrl::fromLocalFile(item->data(1001).toString()));
+}
+
+void MainWindow::on_openFolderButton_clicked()
+{
+    if(m_fileList.isEmpty())
+    {
+        return;
+    }
+
+    QString dirPath = QFileInfo(m_fileList[0]).dir().absolutePath();
+    QDesktopServices::openUrl(QUrl::fromLocalFile(dirPath));
 }

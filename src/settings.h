@@ -20,6 +20,9 @@ public:
     int height();
     void setHeight(int height);
 
+    QByteArray windowGeometry();
+    void setWindowGeometry(QByteArray windowGeometry);
+
 private:
     explicit Settings(QObject *parent = 0);
     QSettings m_settings;

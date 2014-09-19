@@ -15,6 +15,8 @@ public:
 
     void start();
 
+    MainWindow * mainWindow();
+
 private slots:
     void launchApplication();
 

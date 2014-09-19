@@ -26,12 +26,18 @@ void Application::start()
     QTimer::singleShot(0, this, SLOT(launchApplication()));
 }
 
+MainWindow * Application::mainWindow()
+{
+    return m_mainWindow;
+}
+
 void Application::launchApplication()
 {
     installTranslation();
 
     m_mainWindow = new MainWindow();
     m_mainWindow->show();
+    m_mainWindow->restoreGeometry(Settings::instance()->windowGeometry());
 }
 
 void Application::installTranslation()
@@ -40,7 +46,7 @@ void Application::installTranslation()
 #ifdef Q_OS_WIN
     translator->load(qApp->applicationDirPath() + "/simple-resize_ru.qm");
 #else
-    translator->load("/usr/share/ssimple-resize/translations/simple-resize_ru.qm");
+    translator->load("/usr/share/simple-resize/translations/simple-resize_ru.qm");
 #endif
     installTranslator(translator);
 }
